@@ -1,0 +1,11 @@
+INFO:     Started server process [232810]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8005 (Press CTRL+C to quit)
+INFO:     127.0.0.1:58446 - "POST /participants?id=BANK_A&name=BankA HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58456 - "POST /participants/BANK_A/deposit?amount=1000&currency=USDC HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58472 - "POST /payments HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:58478 - "GET /payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58486 - "HEAD /dashboard/index.html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34016 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34016 - "GET /favicon.ico HTTP/1.1" 404 Not Found

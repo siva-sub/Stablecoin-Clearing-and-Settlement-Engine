@@ -1,6 +1,9 @@
 # SCSE: Stablecoin Clearing & Settlement Engine
 
+[![Static Demo](https://img.shields.io/badge/Demo-GitHub--Pages-blue)](https://yourusername.github.io/SCSE/)
+
 **SCSE** is a portfolio-grade financial infrastructure proof-of-concept. It represents a hybrid **Clearing & Settlement Engine** capable of bridging traditional payment messaging (ISO 20022/IVMS101) with blockchain-based settlement (ERC-20).
+
 
 ## 🚀 Use Case
 Banks and VASPs (Virtual Asset Service Providers) need to settle stablecoin payments efficiently. 
@@ -44,11 +47,18 @@ graph TD
 
 ## ⚡ Quick Start
 
-### Prerequisites
-*   Python 3.10+
-*   Node.js 18+ (For Dashboard)
+### 1. 🌐 Static Live Demo (No Install)
+The dashboard includes a **Stateful Demo Mode**. If the backend is unreachable, it automatically switches to a high-fidelity simulation using `localStorage`.
 
-### 1. Backend Setup
+*   **Host on GitHub Pages**:
+    ```bash
+    cd frontend
+    npm run build
+    # The build outputs to src/dashboard
+    # You can deploy the contents of src/dashboard to any static host.
+    ```
+
+### 2. Backend Setup
 ```bash
 # Clone and Install
 git clone https://github.com/yourusername/scse.git

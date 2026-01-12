@@ -1,15 +1,21 @@
 # Python
-__pycache__/
-*.py[cod]
-*$py.class
 venv/
-.env
-scse.db
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.sqlite
 
 # Node
 node_modules/
-frontend/node_modules/
-frontend/dist/
+dist/
+.env
 
-# Logs
-*.log
+# Project Specific
+src/dashboard/assets/
+src/dashboard/index.html
+
+# IDE
+.vscode/
+.idea/
+.gemini/
