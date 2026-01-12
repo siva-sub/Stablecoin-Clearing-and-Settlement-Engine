@@ -143,24 +143,29 @@ export function Netting() {
                             <Alert icon={<IconCheck />} color="green" title="Efficiency" variant="light" mb="md">
                                 Liquidity Optimization complete. {cycle.settlementInstructions.length} instructions generated.
                             </Alert>
+                            <Text size="sm" mb="xs" fw={500}>Choose Settlement Method:</Text>
                             <Group grow>
-                                <Button
-                                    variant="light" color="green"
-                                    onClick={() => settleCycle(cycle.id, cycle.settlementInstructions)}
-                                    disabled={cycle.settlementInstructions.every((i: any) => i.status === 'SETTLED')}
-                                >
-                                    Simulate Settlement (Ledger)
-                                </Button>
+                                <Tooltip label="Offline Mode: Instantly updates balances in the local database. No Wallet/Gas required." multiline w={220}>
+                                    <Button
+                                        variant="light" color="green"
+                                        onClick={() => settleCycle(cycle.id, cycle.settlementInstructions)}
+                                        disabled={cycle.settlementInstructions.every((i: any) => i.status === 'SETTLED')}
+                                    >
+                                        Simulate (Offline)
+                                    </Button>
+                                </Tooltip>
 
-                                <Button
-                                    variant="filled"
-                                    gradient={{ from: 'orange', to: 'red' }}
-                                    leftSection={<IconCoin size={16} />}
-                                    onClick={() => settleOnChain(cycle)}
-                                    disabled={!isConnected || cycle.settlementInstructions.every((i: any) => i.status === 'SETTLED')}
-                                >
-                                    Settle on Blockchain (Web3)
-                                </Button>
+                                <Tooltip label="Web3 Mode: Sends a real transaction to Sepolia Testnet. Updates the Smart Contract state." multiline w={220}>
+                                    <Button
+                                        variant="filled"
+                                        gradient={{ from: 'orange', to: 'red' }}
+                                        leftSection={<IconCoin size={16} />}
+                                        onClick={() => settleOnChain(cycle)}
+                                        disabled={!isConnected || cycle.settlementInstructions.every((i: any) => i.status === 'SETTLED')}
+                                    >
+                                        Settle on Blockchain
+                                    </Button>
+                                </Tooltip>
                             </Group>
                         </Grid.Col>
                     </Grid>
