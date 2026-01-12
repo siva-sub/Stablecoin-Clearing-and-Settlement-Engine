@@ -1,4 +1,4 @@
-import { Paper, Title, SimpleGrid, Group, Text, Button, Badge, Card, RingProgress, Timeline, ThemeIcon, Accordion, Grid, Center, Stack, Table, ActionIcon, Tooltip, Modal, Code, CopyButton } from '@mantine/core';
+import { Paper, Title, SimpleGrid, Group, Text, Button, Badge, Card, RingProgress, Timeline, ThemeIcon, Accordion, Grid, Center, Stack, Table, ActionIcon, Tooltip, Modal, Code, CopyButton, Alert } from '@mantine/core';
 import { useSCSEStore } from '../core/store';
 import { ClearingEngine } from '../core/engine';
 import { ISO20022Generator } from '../core/iso20022';
