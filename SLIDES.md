@@ -48,20 +48,17 @@ I have worked across product delivery, user research, and cross-agency collabora
 
 ---
 
-# **The Product: SCSE** 🚀
+# **The Learning Journey: SCSE** 🚀
 
-**What I Built**: A fully functional, production-grade clearing and settlement engine.
+**Goal**: To build a real-world Defi application from scratch to learn full-stack Web3 development.
 
 <div class="columns">
 <div>
 
 ### **Live Dashboard**
-A React-based financial workstation that simulates:
-*   Real-time RTGS Payment Clearing.
-*   Interactive Netting Cycles.
-*   Wallet-based Settlement.
-
-> *I built this from scratch to demonstrate the complete lifecycle of a digital asset payment.*
+I built this React workstation to visualize the invisible logic of clearing engines.
+*   **Concepts Learned**: State Management (Zustand), React Hooks, Wagmi integration.
+*   **Outcome**: A working simulation of "Real-Time Gross Settlement" vs "Netting".
 
 </div>
 <div>
@@ -70,6 +67,23 @@ A React-based financial workstation that simulates:
 
 </div>
 </div>
+
+---
+
+# **My First Smart Contracts** 📜
+
+I moved beyond theory and deployed my first Solidity contracts to **Sepolia Testnet**.
+
+### **1. Settlement.sol**
+*   **Function**: `settleBatch(debtors, amounts, creditors, amounts)`
+*   **Logic**: Atomically collects from debtors and pays creditors. Reverts if *any* transfer fails (All-or-Nothing).
+*   **Security**: `onlyOwner` modifier ensures only the Clearing Engine can trigger movement.
+
+### **2. MockUSDC.sol**
+*   **Standard**: ERC-20 implementation using **OpenZeppelin**.
+*   **Feature**: Added a public `mint()` function to simulate a faucet for testing.
+
+> **Tools Used**: Hardhat (Compiling/Deploying), Alchemy (RPC), Etherscan (Verification).
 
 ---
 
