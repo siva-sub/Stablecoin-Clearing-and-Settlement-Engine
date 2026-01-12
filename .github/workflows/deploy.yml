@@ -8,6 +8,8 @@ on:
 permissions:
   contents: read
   deployments: write
+  pages: write      # Required for Pages
+  id-token: write   # Required for Pages
 
 jobs:
   test-and-build:
@@ -15,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # 1. Backend Setup
+      # 1. Backend Setup (Tests)
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -27,7 +29,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-asyncio httpx
 
-      # 2. Frontend Setup
+      # 2. Frontend Setup (Build)
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
@@ -37,40 +39,28 @@ jobs:
         run: |
           cd frontend
           npm ci
-          npm run build
-          
-      # 3. Run Tests
-      # Note: We skip the test that requires a running server (dashboard test) 
-      # and just run unit/integration tests that use direct calls or testclient
+          npm run build  # Outputs to src/dashboard
+
+      # 3. Run Verification Tests
       - name: Run Integration Tests
         run: |
           export PYTHONPATH=$PYTHONPATH:.
-          # Run the Netting test (it spawns its own AsyncClient)
           pytest tests/test_netting_scenario.py
           pytest tests/test_settlement.py
 
-  deploy:
+      # 4. Upload Pages Artifact
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: src/dashboard
+
+  deploy-to-pages:
     needs: test-and-build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Create GitHub Deployment
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const dep = await github.rest.repos.createDeployment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: context.sha,
-              task: 'deploy',
-              environment: 'production',
-              description: 'Deploying SCSE MVP'
-            });
-            
-            await github.rest.repos.createDeploymentStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              deployment_id: dep.data.id,
-              state: 'success',
-              description: 'Deployment simulated successfully',
-              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-            });
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
