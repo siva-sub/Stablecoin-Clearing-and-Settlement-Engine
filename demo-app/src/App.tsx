@@ -9,6 +9,8 @@ import { Admin } from './components/Admin';
 import { useEffect } from 'react';
 import { useSCSEStore } from './core/store';
 import { theme } from './theme';
+import { Web3Provider } from './web3';
+import { ConnectWallet } from './components/ConnectWallet';
 
 function AppContent() {
   const [opened, { toggle }] = useDisclosure();
@@ -39,9 +41,12 @@ function AppContent() {
               <Text size="xs" c="dimmed" fw={500}>Clearing & Settlement Engine</Text>
             </div>
           </Group>
-          <Badge leftSection={<IconActivity size={12} />} color="green" variant="light" size="lg">
-            SYSTEM ONLINE
-          </Badge>
+          <Group>
+            <ConnectWallet />
+            <Badge leftSection={<IconActivity size={12} />} color="green" variant="light" size="lg">
+              SYSTEM ONLINE
+            </Badge>
+          </Group>
         </Group>
       </AppShell.Header>
 
@@ -104,10 +109,12 @@ function AppContent() {
 
 export default function App() {
   return (
-    <MantineProvider theme={theme}>
-      <BrowserRouter basename="/Stablecoin-Clearing-and-Settlement-Engine">
-        <AppContent />
-      </BrowserRouter>
-    </MantineProvider>
+    <Web3Provider>
+      <MantineProvider theme={theme}>
+        <BrowserRouter basename="/Stablecoin-Clearing-and-Settlement-Engine">
+          <AppContent />
+        </BrowserRouter>
+      </MantineProvider>
+    </Web3Provider>
   );
 }
