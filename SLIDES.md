@@ -146,7 +146,9 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 *   Net Obligation: **$0**.
 *   **Total Liquidity Locked: $0**.
 
-> The Engine isn't for *speed*; it's for **Capital Efficiency**.
+> **"Where is the Stablecoin part?"**
+> In a perfect circle ($0 net), the Stablecoin is the **Unit of Account** (Measuring debt).
+> In a partial circle (e.g. $1M vs $900k), the **Residual Difference ($100k)** is settled on-chain.
 
 ---
 
