@@ -1,0 +1,11 @@
+--- 1. Creating Participants ---
+{"status":"exists","id":"BANK_A"}
+{"status":"exists","id":"BANK_B"}
+--- 2. Depositing Funds ---
+{"status":"deposited","new_balance":"1000000"}
+--- 3. Checking Initial Balance ---
+{"participantId":"BANK_A","currency":"USDC","amount":"3000000","updatedAt":"now"}
+--- 4. Submitting Payment ---
+{"instructionId":"TX-002","status":"REJECTED","reasonCode":"RR04","timestamp":"2026-01-12 09:54:22.933656","settlementReference":null}
+--- 5. Checking Payment Status ---
+{"instructionId":"TX-002","status":"REJECTED","reasonCode":"RR04","timestamp":"2026-01-12 09:54:22.933656","settlementReference":null}

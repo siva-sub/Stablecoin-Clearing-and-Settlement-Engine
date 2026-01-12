@@ -1,0 +1,104 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Statement",
+    "description": "End of day statement modelled after ISO 20022 camt.053",
+    "type": "object",
+    "required": [
+        "participantId",
+        "statementId",
+        "statementDate",
+        "openingBalance",
+        "closingBalance",
+        "entries"
+    ],
+    "properties": {
+        "participantId": {
+            "type": "string",
+            "description": "The Agent ID (BIC/VASP ID) owning this statement"
+        },
+        "statementId": {
+            "type": "string"
+        },
+        "statementDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "currency": {
+            "type": "string"
+        },
+        "openingBalance": {
+            "type": "object",
+            "required": [
+                "amount",
+                "date"
+            ],
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "closingBalance": {
+            "type": "object",
+            "required": [
+                "amount",
+                "date"
+            ],
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "entries": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "instructionId",
+                    "direction",
+                    "amount",
+                    "status",
+                    "timestamp"
+                ],
+                "properties": {
+                    "instructionId": {
+                        "type": "string"
+                    },
+                    "direction": {
+                        "type": "string",
+                        "enum": [
+                            "DEBIT",
+                            "CREDIT"
+                        ]
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "counterparty": {
+                        "type": "string",
+                        "description": "Counterparty Agent ID"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "transactionRef": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
