@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: './', // Essential for GitHub Pages sub-directory hosting
   build: {
-    outDir: '../src/dashboard',
+    outDir: '../docs',
     emptyOutDir: true,
   }
 })
