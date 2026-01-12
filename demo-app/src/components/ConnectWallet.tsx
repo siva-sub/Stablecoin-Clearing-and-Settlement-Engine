@@ -32,11 +32,22 @@ export function ConnectWallet() {
         );
     }
 
+    const handleConnect = () => {
+        const connector = connectors[0];
+        if (!connector) {
+            alert("No Wallet Extension detected. Please install MetaMask or similar.");
+            return;
+        }
+        connect({ connector }, {
+            onError: (err) => alert("Connection Failed: " + err.message)
+        });
+    };
+
     return (
         <Button
             variant="gradient"
             gradient={{ from: 'orange', to: 'red' }}
-            onClick={() => connect({ connector: connectors[0] })}
+            onClick={handleConnect}
             leftSection={<IconWallet size={18} />}
         >
             Connect Wallet
