@@ -1,6 +1,8 @@
-import { Button, Menu, Text, Avatar, Group, Badge } from '@mantine/core';
+import { Button, Menu, Text, Avatar, Group, Badge, ActionIcon, Tooltip } from '@mantine/core';
 import { useAccount, useConnect, useDisconnect, useBalance } from 'wagmi';
-import { IconWallet, IconChevronDown, IconLogout } from '@tabler/icons-react';
+import { IconWallet, IconChevronDown, IconLogout, IconHelp } from '@tabler/icons-react';
+import { WalletHelpModal } from './WalletHelpModal';
+import { useDisclosure } from '@mantine/hooks';
 
 export function ConnectWallet() {
     const { address, isConnected, chain } = useAccount();
