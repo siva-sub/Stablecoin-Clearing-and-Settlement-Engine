@@ -63,6 +63,73 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 
 ---
 
+# **The Deep Dive: Identity vs Value** 🔍
+
+The core architecture challenge in compliant crypto-finance is separating **Who** from **What**.
+
+<div class="columns">
+<div>
+
+### **Identity (Off-Chain)**
+*   **Standards**: IVMS101 (Travel Rule).
+*   **Carrier**: Encrypted P2P Messaging (VASP-to-VASP).
+*   **Content**: PII, Sanctions Data, Source of Funds.
+*   **Why?**: Privacy (GDPR) & Scalability.
+
+</div>
+<div>
+
+### **Value (On-Chain)**
+*   **Standards**: ERC-20 / Native Token.
+*   **Carrier**: Public/Private Blockchain.
+*   **Content**: Amount, Addresses, Proof of Ownership.
+*   **Why?**: Finality, Trustlessness, Immutability.
+
+</div>
+</div>
+
+> **Concept**: The Blockchain settles value; VASPs exchange identity off-chain.
+
+---
+
+# **Why not just ISO 20022?** 🏦
+
+ISO 20022 is the gold standard for banking (SWIFT MX), but it has limitations in the crypto ecosystem:
+
+1.  **Bank-Centric Model**: Assumes counterparties are regulated FIs (BICs) with accounts. In crypto, "Self-Custody" (Unhosted Wallets) exists.
+2.  **Privacy Leaks**: Rich data payloads (Remittance Info) on a transparent blockchain = Doxing users.
+3.  **Complexity**: ISO messages are heavy. Crypto needs lightweight, purpose-built identity packets.
+
+### **The Hybrid Compromise**
+*   **Internal Ops / Fiat Legs**: Use **ISO 20022**.
+*   **VASP-to-VASP Messaging**: Use **IVMS101**.
+
+---
+
+# **IVMS 101: The Identity Standard**
+
+**IVMS 101** (InterVASP Messaging Standard) is the data model for the "Travel Rule".
+
+*   It is **NOT** a transport protocol (it's the payload, not the pipe).
+*   It is **NOT** XML/JSON specific (though usually JSON).
+
+### **What's Inside?**
+*   **Originator**: Name, Account Number (Wallet Address), Physical Address, National ID.
+*   **Beneficiary**: Name, Account Number.
+*   **Beneficiary VASP**: Identification code (LEI, BIC).
+
+> **Analogy**: IVMS101 is the "Envelope" containing the ID cards. The Blockchain is just the "Truck" moving the cash.
+
+---
+
+# **The Compliant Flow (Custodial)**
+
+How a compliant stablecoin transfer *actually* happens.
+
+![h:450](https://kroki.io/mermaid/svg/eNptkctuwjAQRff9illVQSpqw5IFUgggUCkgQiN1ObInYMWxU8cB5e87eVRVBV5aZ67vGVf0XZMRtFB4dlg8AZ8SnVdClWg8pCFgBXunzsqgtw7SKDncUbvlqcVODq-k4Vhrgi025O7jJi03J0MZX6FrHufF62iz60htRS4uqAwECZVWKxw9dfjOegJ7JW4UvqSTKSSeSginsJFkvPINrNHI6oI5QbDPsnHcpoy62TQcz2bcmYfISNikH0n4FsIBG21RQrA0wjWlJ9njTDLfvrGy7oZO_r2xQI995GRAjrWBBI3wyprq9f0rhvhCIv-FWopLRiI39qZJngmeISpLxyoPxLpFDG4cnqKuqV2zqTIGgr250xom5o5NBFa-p7HrA8Fnsoh7uOPGQ-nYmky5gtfhvaaC5WDF_61Z8b9d7Egq_p-68rbgBtvWwP0AJsWzTA==)
+
+---
+
 # **The Solution: SCSE** 🚀
 
 A portfolio-grade financial engine that implements **Real-Time Gross Settlement (RTGS)** and **Multilateral Netting** for Stablecoins.
