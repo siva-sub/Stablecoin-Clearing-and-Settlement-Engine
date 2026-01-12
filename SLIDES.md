@@ -102,6 +102,29 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 
 ---
 
+# **Definitions: Clearing vs Settlement** 📖
+
+In the context of Stablecoins (`USDC`/`EURC`), these terms have specific meanings:
+
+### **1. Clearing (Off-Chain)** ⚡
+*   **What**: The *calculation* of obligations.
+*   **Action**: "I owe you $50".
+*   **Process**:
+    *   Validation (Is signature valid?)
+    *   Compliance (Travel Rule / Sanctions)
+    *   Data updates (Internal Ledger)
+
+### **2. Settlement (On-Chain)** ⛓️
+*   **What**: The *extinguishment* of obligations.
+*   **Action**: "Here is the $50 token".
+*   **Process**:
+    *   Blockchain Transaction (ERC-20 Transfer)
+    *   **Finality**: Irreversible state change on Ethereum.
+
+> **Key Difference**: Clearing is "Promise"; Settlement is "Truth".
+
+---
+
 # **The Deep Dive: Identity vs Value** 🔍
 
 The core architecture challenge in compliant crypto-finance is separating **Who** from **What**.
