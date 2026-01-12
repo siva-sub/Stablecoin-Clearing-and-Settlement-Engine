@@ -40,30 +40,44 @@ export function ConnectWallet() {
         });
     };
 
+    const [helpOpen, { open: openHelp, close: closeHelp }] = useDisclosure(false);
+
     return (
-        <Menu shadow="md" width={200}>
-            <Menu.Target>
-                <Button
-                    variant="gradient"
-                    gradient={{ from: 'orange', to: 'red' }}
-                    leftSection={<IconWallet size={18} />}
-                >
-                    Connect Wallet
-                </Button>
-            </Menu.Target>
-            <Menu.Dropdown>
-                <Menu.Label>Select Wallet</Menu.Label>
-                {connectors.map((connector) => (
-                    <Menu.Item
-                        key={connector.uid}
-                        onClick={() => handleConnect(connector)}
-                        leftSection={<IconWallet size={14} />}
-                    >
-                        {connector.name}
-                    </Menu.Item>
-                ))}
-                {connectors.length === 0 && <Menu.Item disabled>No Wallets Detected</Menu.Item>}
-            </Menu.Dropdown>
-        </Menu>
+        <>
+            <Group gap="xs">
+                <Menu shadow="md" width={200}>
+                    <Menu.Target>
+                        <Button
+                            variant="gradient"
+                            gradient={{ from: 'orange', to: 'red' }}
+                            leftSection={<IconWallet size={18} />}
+                        >
+                            Connect Wallet
+                        </Button>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                        <Menu.Label>Select Wallet</Menu.Label>
+                        {connectors.map((connector) => (
+                            <Menu.Item
+                                key={connector.uid}
+                                onClick={() => handleConnect(connector)}
+                                leftSection={<IconWallet size={14} />}
+                            >
+                                {connector.name}
+                            </Menu.Item>
+                        ))}
+                        {connectors.length === 0 && <Menu.Item disabled>No Wallets Detected</Menu.Item>}
+                    </Menu.Dropdown>
+                </Menu>
+
+                <Tooltip label="How to get a Testnet Wallet?">
+                    <ActionIcon variant="light" color="gray" size="lg" onClick={openHelp}>
+                        <IconHelp size={20} />
+                    </ActionIcon>
+                </Tooltip>
+            </Group>
+
+            <WalletHelpModal opened={helpOpen} onClose={closeHelp} />
+        </>
     );
 }
