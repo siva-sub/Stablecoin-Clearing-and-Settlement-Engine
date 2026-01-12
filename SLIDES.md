@@ -132,23 +132,30 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 
 # **Q: If Settlement is instant, why do we need an Engine?** 🤔
 
-*Question: "Stablecoin settlement is just a transfer, why build a Clearing Engine?"*
+*Answer: To solve the **Liquidity Trap**.*
 
-**Answer:** To solve the **Liquidity Trap**.
+<div class="columns">
+<div>
 
-### Scenario: Gross Settlement (No Engine)
-*   Alice sends **$1M** to Bob (Needs $1M pre-funded).
-*   Bob sends **$1M** to Alice (Needs $1M pre-funded).
-*   **Total Liquidity Locked: $2M**.
+### **Scenario A: Gross Settlement**
+*   Alice sends **$1M** -> Bob.
+*   Bob sends **$1M** -> Alice.
+*   🔴 **Liquidity Locked: $2M** (Pre-funded).
 
-### Scenario: With Clearing Engine (Netting)
-*   Engine calculates: Alice +$1M, Bob -$1M. THEN Bob +$1M, Alice -$1M.
-*   Net Obligation: **$0**.
-*   **Total Liquidity Locked: $0**.
+</div>
+<div>
 
-> **"Where is the Stablecoin part?"**
-> In a perfect circle ($0 net), the Stablecoin is the **Unit of Account** (Measuring debt).
-> In a partial circle (e.g. $1M vs $900k), the **Residual Difference ($100k)** is settled on-chain.
+### **Scenario B: With Engine (Netting)**
+*   A +$1M, B -$1M  **&**  B +$1M, A -$1M.
+*   **Net Obligation: $0**.
+*   🟢 **Liquidity Locked: $0**.
+
+</div>
+</div>
+
+> **The Paradox**: In perfect netting ($0), the Stablecoin is the **Unit of Account** (measuring debt). In partial netting, it becomes the **Medium of Exchange** (settling the difference).
+
+---
 
 ---
 
