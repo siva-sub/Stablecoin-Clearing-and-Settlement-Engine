@@ -239,7 +239,8 @@ I am ready to bring this level of engineering rigor and product thinking to your
 
 *   🌐 **Portfolio**: [sivasub.com](https://sivasub.com)
 *   💼 **LinkedIn**: [linkedin.com/in/sivasub987](https://www.linkedin.com/in/sivasub987/)
-*   💻 **Code**: [github.com/siva-sub/SCSE](https://github.com/siva-sub/SCSE)
+*   💻 **Code**: [github.com/siva-sub/Stablecoin-Clearing-and-Settlement-Engine](https://github.com/siva-sub/Stablecoin-Clearing-and-Settlement-Engine)
+*   📚 **Docs**: [Full Documentation in /docs](https://github.com/siva-sub/Stablecoin-Clearing-and-Settlement-Engine/tree/main/docs)
 
 <br>
 
