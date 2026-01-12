@@ -1,10 +1,12 @@
-import { PaymentInstruction } from './types';
+import type { PaymentInstruction } from './types';
 
 export class ISO20022Generator {
 
     static generatePacs008(payment: PaymentInstruction): string {
-        const timestamp = new Date().toISOString().split('.')[0]; // YYYY-MM-DDThh:mm:ss
-        const msgId = `SCSE/${new Date().getFullYear()}/${payment.id.slice(0, 8)}`;
+        const timestamp = new Date().toISOString().split('.')[0];
+        // Use instructionId since 'id' doesn't exist on PaymentInstruction interface
+        const id = (payment as any).id || payment.instructionId || "UNKNOWN";
+        const msgId = `SCSE/${new Date().getFullYear()}/${id.slice(0, 8)}`;
 
         return `<?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.08">
@@ -23,9 +25,9 @@ export class ISO20022Generator {
         </GrpHdr>
         <CdtTrfTxInf>
             <PmtId>
-                <InstrId>${payment.id}</InstrId>
-                <EndToEndId>${payment.id}</EndToEndId>
-                <TxId>${payment.id}</TxId>
+                <InstrId>${id}</InstrId>
+                <EndToEndId>${id}</EndToEndId>
+                <TxId>${id}</TxId>
             </PmtId>
             <IntrBkSttlmAmt Ccy="USD">${payment.amount.toFixed(2)}</IntrBkSttlmAmt>
             <InstdAmt Ccy="USD">${payment.amount.toFixed(2)}</InstdAmt>
@@ -43,7 +45,7 @@ export class ISO20022Generator {
                 </FinInstnId>
             </Cdtr>
             <RmtInf>
-                <Ustrd>SCSE Settlement / Ref: ${payment.id.slice(0, 6)}</Ustrd>
+                <Ustrd>SCSE Settlement / Ref: ${id.slice(0, 6)}</Ustrd>
             </RmtInf>
         </CdtTrfTxInf>
     </FIToFICstmrCdtTrf>
@@ -51,7 +53,6 @@ export class ISO20022Generator {
     }
 
     private static mockBIC(agentName: string): string {
-        // Generate a consistent Mock BIC based on the name
         const prefix = agentName.replace(/[^A-Z]/g, '').padEnd(4, 'X').slice(0, 4);
         return `${prefix}US33XXX`;
     }

@@ -38,7 +38,7 @@ export function Dashboard() {
     const handleExport = (payment: any) => {
         const xml = ISO20022Generator.generatePacs008(payment);
         setSelectedXml(xml);
-        setSelectedPaymentId(payment.id);
+        setSelectedPaymentId(payment.instructionId);
         open();
     };
 

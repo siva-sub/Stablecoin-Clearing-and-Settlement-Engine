@@ -71,7 +71,7 @@ export function ConnectWallet() {
                 </Menu>
 
                 <Tooltip label="How to get a Testnet Wallet?">
-                    <ActionIcon variant="light" color="gray" size="lg" onClick={openHelp}>
+                    <ActionIcon variant="filled" color="blue" size="lg" radius="xl" onClick={openHelp}>
                         <IconHelp size={20} />
                     </ActionIcon>
                 </Tooltip>
