@@ -160,7 +160,7 @@ Algorithms identify and resolve circular debts (A->B->C->A).
 
 I built a full-stack simulation to demonstrate end-to-end payment lifecycles.
 
-![w:900](https://kroki.io/mermaid/svg/eNpNkE1LxDAQQO_-ioG9tGBBLbKwBw_tVlxYXNm2p-Ih207SYExKOh7E9b-bxn7NYTJk3jwyEZZ1LRzPN-Ci7NEGwalDy8jYMIQoeoLyUJ2R1QTP1mhC3bx71qf-6yK8IE_zDCqf3xQjbuznPzZEIy3WJI2GIpkvy4O3pwqZlVpUUwGZFlLjMj03BnyfVMGJ8yhtmdRwxEagDRf2FYkG2XhOrnHUY26B5f0T5_rX3NUKIWFUt1fIipefHDujJIMCe9JIv6u96duhw3cBl0rtNpzz256s-cDdJo7jFeREI4P3_JHjjN09bLeXZkXukwlEXMv-ANMCezY=)
+![h:400](https://kroki.io/mermaid/svg/eNpNkE1LxDAQQO_-ioG9tGBBLbKwBw_tVlxYXNm2p-Ih207SYExKOh7E9b-bxn7NYTJk3jwyEZZ1LRzPN-Ci7NEGwalDy8jYMIQoeoLyUJ2R1QTP1mhC3bx71qf-6yK8IE_zDCqf3xQjbuznPzZEIy3WJI2GIpkvy4O3pwqZlVpUUwGZFlLjMj03BnyfVMGJ8yhtmdRwxEagDRf2FYkG2XhOrnHUY26B5f0T5_rX3NUKIWFUt1fIipefHDujJIMCe9JIv6u96duhw3cBl0rtNpzz256s-cDdJo7jFeREI4P3_JHjjN09bLeXZkXukwlEXMv-ANMCezY=)
 
 
 *   **Frontend**: React, Mantine, Zustand.
