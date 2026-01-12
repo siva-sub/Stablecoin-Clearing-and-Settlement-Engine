@@ -1,8 +1,9 @@
 import { useSCSEStore } from './store';
 import type { PaymentInstruction, PaymentRecord, NettingCycle, SettlementInstruction } from './types';
+import { v4 as uuidv4 } from 'uuid';
 
 // Simple ID gen to avoid dependency for now
-const genId = () => Math.random().toString(36).substr(2, 9);
+const genId = () => uuidv4().split('-')[0].toUpperCase();
 
 export class ClearingEngine {
     static async submitPayment(instruction: PaymentInstruction): Promise<PaymentRecord> {
