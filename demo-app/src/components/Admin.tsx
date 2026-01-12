@@ -57,7 +57,7 @@ export function Admin() {
             debtorAgent: 'BANK_C', creditorAgent: 'BANK_A', amount: 100, currency: 'USDC'
         });
         setCircleLoading(false);
-        alert('Circular Payments Injected! Go to "Netting Cycles" to see 100% efficiency.');
+        alert('Circular Payments Injected to Clearing Queue (Pending).\n\nNEXT STEP: Go to "Netting Cycles" tab and click "Calculate Net Positions" to see the efficiency.');
     };
 
     return (
