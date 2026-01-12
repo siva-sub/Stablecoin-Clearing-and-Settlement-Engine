@@ -1,12 +1,19 @@
-import { Paper, Title, SimpleGrid, Group, Text, Button, Badge, Card, RingProgress, Timeline, ThemeIcon, Accordion, Grid, Center, Stack } from '@mantine/core';
+import { Paper, Title, SimpleGrid, Group, Text, Button, Badge, Card, RingProgress, Timeline, ThemeIcon, Accordion, Grid, Center, Stack, Table, ActionIcon, Tooltip, Modal, Code, CopyButton } from '@mantine/core';
 import { useSCSEStore } from '../core/store';
 import { ClearingEngine } from '../core/engine';
-import { IconPlus, IconBuildingBank, IconTrendingUp, IconActivity, IconInfoCircle, IconCheck, IconX } from '@tabler/icons-react';
+import { ISO20022Generator } from '../core/iso20022';
+import { IconPlus, IconBuildingBank, IconTrendingUp, IconActivity, IconInfoCircle, IconCheck, IconX, IconFileCode, IconDownload, IconCopy, IconArrowUpRight } from '@tabler/icons-react';
 import { useState } from 'react';
+import { useDisclosure } from '@mantine/hooks';
 
 export function Dashboard() {
     const { participants, payments } = useSCSEStore();
     const [loading, setLoading] = useState(false);
+
+    // Modal State
+    const [opened, { open, close }] = useDisclosure(false);
+    const [selectedXml, setSelectedXml] = useState('');
+    const [selectedPaymentId, setSelectedPaymentId] = useState('');
 
     const totalVolume = payments.reduce((acc, p) => acc + p.amount, 0);
     const clearedCount = payments.filter(p => p.status === 'CLEARED').length;
@@ -26,6 +33,24 @@ export function Dashboard() {
             currency: 'USDC'
         });
         setLoading(false);
+    };
+
+    const handleExport = (payment: any) => {
+        const xml = ISO20022Generator.generatePacs008(payment);
+        setSelectedXml(xml);
+        setSelectedPaymentId(payment.id);
+        open();
+    };
+
+    const handleDownload = () => {
+        const blob = new Blob([selectedXml], { type: 'text/xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `pacs.008.${selectedPaymentId}.xml`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     };
 
     return (
@@ -87,6 +112,8 @@ export function Dashboard() {
                 </Card>
             </SimpleGrid>
 
+            {/* Split View: Timeline Feed (Left) + How It Works (Right Right) -> Changed to Top/Bottom for Table */}
+
             <Grid>
                 <Grid.Col span={{ base: 12, md: 8 }}>
                     <Card title="Live Activity" h="100%">
@@ -96,35 +123,18 @@ export function Dashboard() {
                                 <Text c="dimmed">No transactions yet. Click "Simulate" above.</Text>
                             </Center>
                         ) : (
-                            <div style={{ maxHeight: 400, overflowY: 'auto' }}>
+                            <div style={{ maxHeight: 300, overflowY: 'auto' }}>
                                 <Timeline active={payments.length} bulletSize={24} lineWidth={2}>
-                                    {payments.slice(0, 10).map((p) => (
+                                    {payments.slice(0, 5).map((p) => (
                                         <Timeline.Item
                                             key={p.instructionId}
-                                            bullet={
-                                                p.status === 'REJECTED' ? <IconX size={12} /> :
-                                                    p.status === 'NETTED' ? <IconActivity size={12} /> :
-                                                        <IconCheck size={12} />
-                                            }
-                                            color={
-                                                p.status === 'REJECTED' ? 'red' :
-                                                    p.status === 'NETTED' ? 'grape' :
-                                                        p.status === 'CLEARED' ? 'blue' : 'green'
-                                            }
-                                            title={
-                                                <Text size="sm" fw={500}>
-                                                    Payment <Text span ff="monospace" c="dimmed">{p.instructionId}</Text>
-                                                </Text>
-                                            }
+                                            bullet={p.status === 'REJECTED' ? <IconX size={12} /> : <IconCheck size={12} />}
+                                            color={p.status === 'REJECTED' ? 'red' : p.status === 'NETTED' ? 'grape' : p.status === 'CLEARED' ? 'blue' : 'green'}
+                                            title={<Text size="sm" fw={500}>Payment <Text span ff="monospace" c="dimmed">{p.instructionId}</Text></Text>}
                                         >
                                             <Text c="dimmed" size="xs" mt={4}>
                                                 <b>{p.debtorAgent}</b> sent <b>${p.amount}</b> to <b>{p.creditorAgent}</b>
                                             </Text>
-                                            <Badge size="xs" mt={4} variant="light" color={
-                                                p.status === 'REJECTED' ? 'red' :
-                                                    p.status === 'NETTED' ? 'grape' :
-                                                        p.status === 'CLEARED' ? 'blue' : 'green'
-                                            }>{p.status}</Badge>
                                         </Timeline.Item>
                                     ))}
                                 </Timeline>
@@ -141,28 +151,91 @@ export function Dashboard() {
                         <Accordion variant="separated" defaultValue="clearing">
                             <Accordion.Item value="clearing">
                                 <Accordion.Control>1. Real-Time Clearing</Accordion.Control>
-                                <Accordion.Panel text="sm" c="dimmed">
-                                    Payments are validated individually (Schema, Compliance, Funds).
-                                    Funds are <b>Reserved</b> immediately, but not settled on-chain yet.
-                                </Accordion.Panel>
+                                <Accordion.Panel text="sm" c="dimmed">Payments are validated individually. Funds Reserved.</Accordion.Panel>
                             </Accordion.Item>
                             <Accordion.Item value="netting">
                                 <Accordion.Control>2. Multilateral Netting</Accordion.Control>
-                                <Accordion.Panel text="sm" c="dimmed">
-                                    The engine aggregates "Cleared" payments.
-                                    Example: If A owes B $100, and B owes A $90, only $10 needs to move.
-                                </Accordion.Panel>
+                                <Accordion.Panel text="sm" c="dimmed">Aggregates "Cleared" payments to reduce liquidity needs.</Accordion.Panel>
                             </Accordion.Item>
                             <Accordion.Item value="settlement">
                                 <Accordion.Control>3. Final Settlement</Accordion.Control>
-                                <Accordion.Panel text="sm" c="dimmed">
-                                    Net obligations are settled on the underlying ledger (e.g., Blockchain), finalizing the transaction.
-                                </Accordion.Panel>
+                                <Accordion.Panel text="sm" c="dimmed">Net obligations settled on Blockchain.</Accordion.Panel>
                             </Accordion.Item>
                         </Accordion>
                     </Card>
                 </Grid.Col>
             </Grid>
+
+            {/* Transaction Ledger Table with Export */}
+            <Card>
+                <Title order={4} mb="md">Transaction Ledger (ISO 20022 Ready)</Title>
+                <Table>
+                    <Table.Thead>
+                        <Table.Tr>
+                            <Table.Th>Timestamp</Table.Th>
+                            <Table.Th>ID</Table.Th>
+                            <Table.Th>From → To</Table.Th>
+                            <Table.Th>Amount</Table.Th>
+                            <Table.Th>Status</Table.Th>
+                            <Table.Th>Action</Table.Th>
+                        </Table.Tr>
+                    </Table.Thead>
+                    <Table.Tbody>
+                        {payments.slice().reverse().slice(0, 10).map((payment) => (
+                            <Table.Tr key={payment.id}>
+                                <Table.Td>
+                                    <Text size="xs" c="dimmed">{new Date(payment.timestamp || Date.now()).toLocaleTimeString()}</Text>
+                                </Table.Td>
+                                <Table.Td><Text size="xs" ff="monospace">{payment.id ? payment.id.slice(0, 8) : payment.instructionId.slice(0, 8)}</Text></Table.Td>
+                                <Table.Td>
+                                    <Group gap="xs">
+                                        <Badge size="sm" variant="dot" color="gray">{payment.debtorAgent}</Badge>
+                                        <IconArrowUpRight size={14} color="gray" />
+                                        <Badge size="sm" variant="dot" color="gray">{payment.creditorAgent}</Badge>
+                                    </Group>
+                                </Table.Td>
+                                <Table.Td fw={700}>${payment.amount.toLocaleString()}</Table.Td>
+                                <Table.Td>
+                                    <Badge
+                                        color={payment.status === 'SETTLED' ? 'green' : payment.status === 'CLEARED' ? 'blue' : 'gray'}
+                                        variant="light"
+                                    >
+                                        {payment.status}
+                                    </Badge>
+                                </Table.Td>
+                                <Table.Td>
+                                    <Tooltip label="Export ISO 20022 XML">
+                                        <ActionIcon variant="subtle" color="blue" onClick={() => handleExport(payment)}>
+                                            <IconFileCode size={18} />
+                                        </ActionIcon>
+                                    </Tooltip>
+                                </Table.Td>
+                            </Table.Tr>
+                        ))}
+                    </Table.Tbody>
+                </Table>
+            </Card>
+
+            <Modal opened={opened} onClose={close} title={<Group><IconFileCode size={20} /><Text fw={700}>ISO 20022 Export (pacs.008)</Text></Group>} size="lg">
+                <Text size="xs" c="dimmed" mb="md">
+                    Generated standard Customer Credit Transfer message. This output is compatible with SWIFT CBPR+ and SEPA inst.
+                </Text>
+                <Paper p="xs" bg="gray.1" withBorder style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                    <Code block style={{ whiteSpace: 'pre-wrap', fontSize: '11px' }}>{selectedXml}</Code>
+                </Paper>
+                <Group justify="flex-end" mt="md">
+                    <CopyButton value={selectedXml}>
+                        {({ copied, copy }) => (
+                            <Button color={copied ? 'teal' : 'gray'} variant="light" onClick={copy} leftSection={copied ? <IconCheck size={16} /> : <IconCopy size={16} />}>
+                                {copied ? 'Copied' : 'Copy Code'}
+                            </Button>
+                        )}
+                    </CopyButton>
+                    <Button leftSection={<IconDownload size={16} />} onClick={handleDownload} variant="filled" color="indigo">
+                        Download .xml
+                    </Button>
+                </Group>
+            </Modal>
         </Stack>
     )
 }
