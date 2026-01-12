@@ -1,4 +1,4 @@
-import { Paper, Title, Button, Table, Badge, Card, Text, Group, Alert, Grid, Progress, List, ThemeIcon, LoadingOverlay } from '@mantine/core';
+import { Paper, Title, Button, Table, Badge, Card, Text, Group, Alert, Grid, Progress, List, ThemeIcon, LoadingOverlay, Tooltip } from '@mantine/core';
 import { useSCSEStore } from '../core/store';
 import { NettingEngine, SettlementManager } from '../core/engine';
 import { IconArrowsShuffle, IconCheck, IconCalculator, IconScale, IconReceipt, IconCoin } from '@tabler/icons-react';
