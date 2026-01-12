@@ -66,7 +66,7 @@ A React-based financial workstation that simulates:
 </div>
 <div>
 
-![h:400](screenshots/dashboard.png)
+![h:280](screenshots/dashboard.png)
 
 </div>
 </div>
