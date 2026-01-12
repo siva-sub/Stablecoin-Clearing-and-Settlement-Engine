@@ -1,10 +1,11 @@
 import '@mantine/core/styles.css';
-import { AppShell, Burger, Group, NavLink, MantineProvider, Title, Text, ThemeIcon, Badge, Avatar, Box, Divider } from '@mantine/core';
+import { AppShell, Burger, Group, NavLink, MantineProvider, Title, Text, ThemeIcon, Badge, Divider } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconDashboard, IconArrowsShuffle, IconSettings, IconCoin, IconActivity, IconTopologyStar3, IconServer } from '@tabler/icons-react';
+import { IconDashboard, IconArrowsShuffle, IconSettings, IconActivity, IconTopologyStar3, IconServer } from '@tabler/icons-react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Dashboard } from './components/Dashboard';
 import { Netting } from './components/Netting';
+import { Settlement } from './components/Settlement';
 import { Admin } from './components/Admin';
 import { useEffect } from 'react';
 import { useSCSEStore } from './core/store';
@@ -99,7 +100,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/netting" element={<Netting />} />
-          <Route path="/settlement" element={<Box p="xl"><Title>Coming Soon in Phase 5</Title></Box>} />
+          <Route path="/settlement" element={<Settlement />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </AppShell.Main>
