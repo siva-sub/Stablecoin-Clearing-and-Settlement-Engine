@@ -104,23 +104,29 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 
 # **Definitions: Clearing vs Settlement** 📖
 
-In the context of Stablecoins (`USDC`/`EURC`), these terms have specific meanings:
+<div class="columns">
+<div>
 
 ### **1. Clearing (Off-Chain)** ⚡
-*   **What**: The *calculation* of obligations.
+*   **What**: Calculating obligations.
 *   **Action**: "I owe you $50".
 *   **Process**:
-    *   Validation (Is signature valid?)
-    *   Compliance (Travel Rule / Sanctions)
-    *   Data updates (Internal Ledger)
+    *   Validation & Compliance (Travel Rule).
+    *   Internal Ledger Updates.
+
+</div>
+<div>
 
 ### **2. Settlement (On-Chain)** ⛓️
-*   **What**: The *extinguishment* of the net obligation.
+*   **What**: Extinguishing obligations.
 *   **Action**: "Here is the $50 token".
-*   **Mechanism**: **It is just an ERC-20 Transfer.**
-    *   Because Blockchains provide *immediate finality*, the transfer **IS** the settlement.
+*   **Mechanism**: **ERC-20 Transfer**.
+    *   Blockchain finality = Settlement.
 
-> **Why separate them?**: By "Clearing" (Netting) off-chain first, we turn 1,000 payments into 1 Settlement Transfer.
+</div>
+</div>
+
+> **Why separate them?**: Netting off-chain turns 1,000 payments into 1 Settlement Transfer.
 
 ---
 
