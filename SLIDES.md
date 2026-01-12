@@ -130,6 +130,26 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 
 ---
 
+# **Q: If Settlement is instant, why do we need an Engine?** 🤔
+
+*Question: "Stablecoin settlement is just a transfer, why build a Clearing Engine?"*
+
+**Answer:** To solve the **Liquidity Trap**.
+
+### Scenario: Gross Settlement (No Engine)
+*   Alice sends **$1M** to Bob (Needs $1M pre-funded).
+*   Bob sends **$1M** to Alice (Needs $1M pre-funded).
+*   **Total Liquidity Locked: $2M**.
+
+### Scenario: With Clearing Engine (Netting)
+*   Engine calculates: Alice +$1M, Bob -$1M. THEN Bob +$1M, Alice -$1M.
+*   Net Obligation: **$0**.
+*   **Total Liquidity Locked: $0**.
+
+> The Engine isn't for *speed*; it's for **Capital Efficiency**.
+
+---
+
 # **The Deep Dive: Identity vs Value** 🔍
 
 The core architecture challenge in compliant crypto-finance is separating **Who** from **What**.
