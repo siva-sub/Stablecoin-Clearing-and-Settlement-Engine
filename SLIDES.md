@@ -266,6 +266,25 @@ I built a full-stack simulation to demonstrate end-to-end payment lifecycles.
 
 ---
 
+# **The Cross-Border Vision** 🌍
+
+*So instead of Central Bank Money or Nostro/Vostro ledgers, can we use this?*
+
+**YES. This replaces "Trapped Liquidity" with "Just-in-Time Liquidity".**
+
+### 1. The Old Way (Correspondent Banking) 🏦
+*   Bank A must keep **$10M** idle in Bank B's ledger (Nostro) just in case.
+*   **Cost**: That $10M earns 0% interest and cannot be used.
+
+### 2. The SCSE Way (Netting + Stablecoins) 🚀
+*   Bank A and Bank B trade all day. Contract calculates Net = $0.
+*   **Result**: No money ever moves. No money is ever idle.
+*   **Settlement**: Only the *difference* moves on-chain, instantly, 24/7.
+
+> **Impact**: Unlocks Trillions in global "Sleeping Money".
+
+---
+
 # **Engineering Philosophy & Impact** 🌟
 
 This project reflects my ability to bridge **Policy** and **Code**:
