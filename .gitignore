@@ -10,10 +10,10 @@ __pycache__/
 node_modules/
 dist/
 .env
+frontend/dist/
 
-# Project Specific
-src/dashboard/assets/
-src/dashboard/index.html
+# Logs
+*.log
 
 # IDE
 .vscode/
