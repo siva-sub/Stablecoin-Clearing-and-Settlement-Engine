@@ -69,7 +69,7 @@ function AppContent() {
 export default function App() {
   return (
     <MantineProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/Stablecoin-Clearing-and-Settlement-Engine">
         <AppContent />
       </BrowserRouter>
     </MantineProvider>
