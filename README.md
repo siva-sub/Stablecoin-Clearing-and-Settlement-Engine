@@ -1,100 +1,97 @@
 # SCSE: Stablecoin Clearing & Settlement Engine
 
-[![Static Demo](https://img.shields.io/badge/Demo-GitHub--Pages-blue)](https://yourusername.github.io/SCSE/)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Build](https://img.shields.io/badge/build-passing-green)
+![Demo](https://img.shields.io/badge/demo-live-orange)
 
-**SCSE** is a portfolio-grade financial infrastructure proof-of-concept. It represents a hybrid **Clearing & Settlement Engine** capable of bridging traditional payment messaging (ISO 20022/IVMS101) with blockchain-based settlement (ERC-20).
+A portfolio-grade financial infrastructure project implementing a **Clearing & Settlement Engine** for Stablecoins (USDC/EURC). 
+Designed to demonstrate high-throughput off-chain clearing with settlement finality required by modern payment systems.
 
+🚀 **[Live Demo (Simulated)](https://siva-sub.github.io/Stablecoin-Clearing-and-Settlement-Engine/)**
 
-## 🚀 Use Case
-Banks and VASPs (Virtual Asset Service Providers) need to settle stablecoin payments efficiently. 
-*   **Problem**: Settle every transaction on-chain (RTGS) is expensive ($1-$5 gas) and slow (12s finality).
-*   **Solution**: SCSE provides an internal **Clearing Layer** that validates compliance (Travel Rule), reserves funds off-chain, and offers **Multilateral Netting** to reduce liquidity requirements by up to 50% before settling on-chain.
+---
 
-## 🌟 Key Features
+## 📖 Overview
 
-*   **Hybrid Settlement Model**: Supports both **RTGS** (Immediate) and **DNS** (Deferred Net Settlement).
-*   **Compliance Native**: Embedded **IVMS101** data model for Travel Rule compliance.
-*   **ISO 20022 Aligned**: Terminology and schemas follows `pacs.008`, `pacs.002`, and `camt.053` standards.
-*   **Liquidity Efficiency**: Integrated **Netting Engine** calculates multilateral positions to minimize on-chain capital needs.
-*   **Observability**: Full dashboard for monitoring balances and settlement lifecycles.
+The SCSE simulates a "Bank-to-Bank" or "VASP-to-VASP" payment network. It implements:
 
-## 🛠️ Technology Stack
+1.  **Real-Time Clearing (RTGS)**: Immediate validation, compliance checks (Travel Rule), and funds reservation.
+2.  **Multilateral Netting (DNS)**: Optimizing liquidity by netting obligations between 3+ parties (e.g., A->B->C->A = 0 liquidity).
+3.  **Settlement Finality**: Simulating on-chain or ledger-based settlement.
 
-*   **Backend**: Python, FastAPI, SQLAlchemy (Async), Pydantic.
-*   **Database**: SQLite (MVP), PostgreSQL (Production ready).
-*   **Frontend**: React, Mintine UI, Vite.
-*   **Simulation**: Built-in "Simulated Chain" adapter for realistic latency verification.
+This repository contains two implementations:
+1.  **Python Backend (`src/`)**: The "Real" implementation using FastAPI, SQLAlchemy (Async), and Structlog.
+2.  **React Simulator (`demo-app/`)**: A client-side visualization of the engine logic for demonstration purposes (hosted on GitHub Pages).
 
-## 🏗️ Architecture
+---
 
-```mermaid
-graph TD
-    A[Bank A] -->|API (pacs.008)| B(Clearing Engine)
-    A -->|Deposit| C(Internal Ledger)
-    
-    B -->|Validate & Reserve| C
-    B -->|Travel Rule Check| D{Compliance}
-    
-    D -->|Fail| E[Reject (pacs.002)]
-    D -->|Pass| F[Cleared State]
-    
-    F -->|Path 1: RTGS| G[Settlement Adapter]
-    F -->|Path 2: Netting| H[Netting Engine]
-    
-    H -->|Net Instructions| G
-    G -->|Tx Hash| I[(Blockchain / L2)]
-```
+## 🏗 Architecture
 
-## ⚡ Quick Start
+### Hybrid Settlement Model
+*   **Layer 1 (Clearing)**: Private Ledger (SQL). High speed (10k+ TPS). Handles privacy and validation.
+*   **Layer 2 (Settlement)**: Public Blockchain (simulated here as "Upstream"). Handles finality.
 
-### 1. 🌐 Static Live Demo (No Install)
-The dashboard includes a **Stateful Demo Mode**. If the backend is unreachable, it automatically switches to a high-fidelity simulation using `localStorage`.
+### Core Components
+*   **Clearing Engine**: Validates ISO 20022 schemas and enforces IVMS101 (Travel Rule) for payments > $1k.
+*   **Netting Engine**: Periodically aggregates `CLEARED` payments into `NettingCycles` to reduce liquidity requirements.
+*   **Reconciliation**: Automated service to verify Internal Ledger vs External Chain.
 
-*   **Host on GitHub Pages**:
-    ```bash
-    cd frontend
-    npm run build
-    # The build outputs to src/dashboard
-    # You can deploy the contents of src/dashboard to any static host.
-    ```
+---
 
-### 2. Backend Setup
+## ⚡ Key Features
+
+*   **ISO 20022 Aligned**: Uses standard terminology (DebtorAgent, CreditorAgent).
+*   **Compliance Ready**: Built-in hooks for Travel Rule (IVMS101) data structure.
+*   **Double-Entry Ledger**: Strict accounting consistency (Debits = Credits).
+*   **Observability**: Structured Logging and detailed state machine tracking.
+
+---
+
+## 🛠 Usage (Python Backend)
+
+### Prerequisites
+*   Python 3.10+
+*   SQLite (Built-in)
+
+### Setup
 ```bash
-# Clone and Install
-git clone https://github.com/yourusername/scse.git
-cd scse
-python3 -m venv venv
+python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
-# Run API (Port 8000)
+### Run Server
+```bash
 uvicorn src.main:app --reload
 ```
+API Docs will be available at `http://localhost:8000/docs`.
 
-### 2. Dashboard Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## 📖 API Documentation
-
-The API supports the full lifecycle of a payment.
-*   **Docs**: `http://localhost:8000/docs`
-
-### Key Endpoints
-*   `POST /participants`: Onboard a new Bank/VASP.
-*   `POST /payments`: Submit a payment instruction.
-*   `POST /netting/run`: Trigger the Multilateral Netting cycle.
-*   `POST /settlement/process-cycle/{id}`: Settle the netted obligations.
-
-## 🧪 Testing
-
-Run the integration suite to verify the Netting Logic and Settlement flows.
+### Run Tests
 ```bash
 pytest tests/
 ```
 
-## 📄 License
-MIT
+---
+
+## 🖥 Usage (Demo App)
+
+The `demo-app` is a standalone React application that runs a complete simulation of the SCSE logic in your browser.
+
+```bash
+cd demo-app
+npm install
+npm run dev
+```
+
+---
+
+## 📚 Documentation
+*   [Flow Diagrams](docs/FLOWS.md)
+*   [State Machine](docs/STATE_MACHINE.md)
+*   [Netting Algorithm](docs/NETTING.md)
+*   [Security](docs/SECURITY.md)
+
+---
+
+## Disclaimer
+This is a portfolio project/prototype. It is not audited for mainnet production use.

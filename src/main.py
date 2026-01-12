@@ -29,7 +29,7 @@ from fastapi.staticfiles import StaticFiles
 from src.api.routes import router as api_router
 
 app.include_router(api_router)
-app.mount("/dashboard", StaticFiles(directory="docs", html=True), name="dashboard")
+app.mount("/dashboard", StaticFiles(directory="src/dashboard", html=True), name="dashboard")
 
 @app.get("/")
 async def root():
