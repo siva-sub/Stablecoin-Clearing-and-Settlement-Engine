@@ -7,7 +7,8 @@ import { useState } from 'react';
 export function Admin() {
     const seed = useSCSEStore(s => s.seedData);
     const wipe = useSCSEStore(s => s.wipeData);
-    const [loading, setLoading] = useState(false);
+    const [trafficLoading, setTrafficLoading] = useState(false);
+    const [circleLoading, setCircleLoading] = useState(false);
 
     const handleReset = () => {
         if (confirm('This will wipe all data. Continue?')) {
@@ -18,7 +19,7 @@ export function Admin() {
     };
 
     const injectTraffic = async () => {
-        setLoading(true);
+        setTrafficLoading(true);
         const store = useSCSEStore.getState();
         const participants = store.participants;
 
@@ -35,11 +36,11 @@ export function Admin() {
                 currency: 'USDC'
             });
         }
-        setLoading(false);
+        setTrafficLoading(false);
     };
 
     const injectCircle = async () => {
-        setLoading(true);
+        setCircleLoading(true);
         // A -> B 100
         await ClearingEngine.submitPayment({
             instructionId: `CIRC-1-${Math.random().toString(36).substr(2, 4)}`,
@@ -55,8 +56,8 @@ export function Admin() {
             instructionId: `CIRC-3-${Math.random().toString(36).substr(2, 4)}`,
             debtorAgent: 'BANK_C', creditorAgent: 'BANK_A', amount: 100, currency: 'USDC'
         });
-        setLoading(false);
-        alert('Circular Payments Injected! Go to Netting Engine to see 100% efficiency.');
+        setCircleLoading(false);
+        alert('Circular Payments Injected! Go to "Netting Cycles" to see 100% efficiency.');
     };
 
     return (
@@ -72,7 +73,7 @@ export function Admin() {
                     <Text size="sm" c="dimmed" mb="md">
                         Simulate high-volume network activity by injecting random payments between participants.
                     </Text>
-                    <Button variant="light" onClick={injectTraffic} loading={loading}>Inject 10 Transactions</Button>
+                    <Button variant="light" onClick={injectTraffic} loading={trafficLoading}>Inject 10 Transactions</Button>
                 </Card>
 
                 <Card padding="lg" radius="md">
@@ -84,7 +85,7 @@ export function Admin() {
                         Injects a 3-way circular payment (A→B→C→A) of equal value.
                         Running a netting cycle on this should result in <b>Zero Settlement Obligations</b> (100% Efficiency).
                     </Text>
-                    <Button color="indigo" variant="light" onClick={injectCircle} loading={loading}>Inject Circle Scenario</Button>
+                    <Button color="indigo" variant="light" onClick={injectCircle} loading={circleLoading}>Inject Circle Scenario</Button>
                 </Card>
 
                 <Card padding="lg" radius="md" withBorder style={{ borderColor: 'var(--mantine-color-red-3)' }}>

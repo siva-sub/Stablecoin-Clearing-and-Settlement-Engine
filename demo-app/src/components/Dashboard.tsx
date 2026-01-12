@@ -65,6 +65,22 @@ export function Dashboard() {
                 </Button>
             </Group>
 
+            <Alert icon={<IconInfoCircle />} title="What is SCSE?" color="blue" variant="outline">
+                <Text size="sm" mb="xs">
+                    <b>Stablecoin Clearing & Settlement Engine (SCSE)</b> is a hybrid system that combines the speed of private ledgers with the trust of public blockchains.
+                </Text>
+                <Grid>
+                    <Grid.Col span={6}>
+                        <Text size="xs" fw={700} c="dimmed">THE PROBLEM</Text>
+                        <Text size="sm">Banks hold fragmented liquidity across many correspondents. Settling payments one-by-one (RTGS) is capital inefficient and slow.</Text>
+                    </Grid.Col>
+                    <Grid.Col span={6}>
+                        <Text size="xs" fw={700} c="dimmed">THE SOLUTION</Text>
+                        <Text size="sm">SCSE aggregates all payments off-chain ("Clearing"), nets them against each other ("Netting"), and only settles the final difference on Ethereum ("Settlement").</Text>
+                    </Grid.Col>
+                </Grid>
+            </Alert>
+
             <SimpleGrid cols={{ base: 1, md: 3 }}>
                 <Card padding="lg" radius="md">
                     <Group>
