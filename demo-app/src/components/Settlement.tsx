@@ -1,4 +1,4 @@
-import { Paper, Title, Text, Group, Badge, Timeline, ThemeIcon, Card, SimpleGrid, Alert, Button } from '@mantine/core';
+import { Paper, Title, Text, Group, Badge, Timeline, ThemeIcon, Card, SimpleGrid, Alert } from '@mantine/core';
 import { IconCheck, IconBuildingBank, IconServer, IconInfoCircle, IconWallet } from '@tabler/icons-react';
 import { useSCSEStore } from '../core/store';
 import { useAccount } from 'wagmi';
@@ -64,6 +64,35 @@ export function Settlement() {
                         </div>
                     </Group>
                 </Card>
+
+                <Card title="Contract Verification" withBorder radius="md" style={{ gridColumn: '1 / -1' }}>
+                    <Group mb="md">
+                        <ThemeIcon color="grape" variant="light"><IconCheck /></ThemeIcon>
+                        <Title order={4}>On-Chain Verification (Sepolia)</Title>
+                    </Group>
+                    <SimpleGrid cols={{ base: 1, sm: 2 }}>
+                        <div>
+                            <Text size="xs" fw={700} c="dimmed">SETTLEMENT CONTRACT</Text>
+                            <Text size="xs" ff="monospace" c="blue" component="a" href="https://sepolia.etherscan.io/address/0x27BeFc27e515DA31378e1DA20343134c1939f55a#code" target="_blank">
+                                0x27Be...55a
+                            </Text>
+                            <Text size="xs" c="dimmed">Verified Source Code</Text>
+                        </div>
+                        <div>
+                            <Text size="xs" fw={700} c="dimmed">MOCK USDC</Text>
+                            <Text size="xs" ff="monospace" c="blue" component="a" href="https://sepolia.etherscan.io/address/0x4D2C70FF3f02D91afB1872FE2595e609965D775a#code" target="_blank">
+                                0x4D2C...75a
+                            </Text>
+                            <Text size="xs" c="dimmed">ERC-20 Token</Text>
+                        </div>
+                        <div>
+                            <Text size="xs" fw={700} c="dimmed">DEMO WALLET ACTIVITY</Text>
+                            <Text size="xs" ff="monospace" c="blue" component="a" href="https://sepolia.etherscan.io/address/0x0cb9cf6c85e96a580a2bf778d141578d4a76e322" target="_blank">
+                                View Live Transactions
+                            </Text>
+                        </div>
+                    </SimpleGrid>
+                </Card>
             </SimpleGrid>
 
             <Card withBorder radius="md">
@@ -74,7 +103,7 @@ export function Settlement() {
                     <Timeline active={settledPayments.length} bulletSize={24} lineWidth={2}>
                         {settledPayments.slice(0, 10).map((p) => (
                             <Timeline.Item
-                                key={p.id}
+                                key={p.instructionId}
                                 bullet={<IconCheck size={12} />}
                                 color="teal"
                                 title={<Text size="sm">Instruction <Text span ff="monospace">{p.instructionId}</Text></Text>}
