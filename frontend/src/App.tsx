@@ -12,7 +12,6 @@ import {
   SimpleGrid,
   Container,
   Paper,
-
   Stack,
   ThemeIcon
 } from '@mantine/core';
@@ -34,7 +33,18 @@ interface Payment {
   settlement_reference?: string;
 }
 
+// Mock data for Static Demo (GitHub Pages)
+const MOCK_PARTICIPANTS = [
+  { id: 'BANK_A', balance: 50000 },
+  { id: 'BANK_B', balance: 75000 },
+  { id: 'BANK_C', balance: 12000 },
+];
 
+const MOCK_PAYMENTS = [
+  { instruction_id: 'TX-MOCK-01', debtor_agent_id: 'BANK_A', creditor_agent_id: 'BANK_B', amount: '150.00', currency: 'USDC', status: 'SETTLED', settlement_reference: '0x123...abc' },
+  { instruction_id: 'TX-MOCK-02', debtor_agent_id: 'BANK_B', creditor_agent_id: 'BANK_C', amount: '2000.00', currency: 'USDC', status: 'CLEARED' },
+  { instruction_id: 'TX-MOCK-03', debtor_agent_id: 'BANK_C', creditor_agent_id: 'BANK_A', amount: '50.00', currency: 'USDC', status: 'NETTED' },
+];
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -52,8 +62,8 @@ function App() {
           if (res.ok) {
             const data = await res.json();
             ps.push({ id, balance: parseFloat(data.amount) });
-          }
-        } catch (e) { console.error(e) }
+          } else { throw new Error("Backend unavailable"); }
+        } catch (e) { throw e; }
       }
       if (ps.length > 0) setParticipants(ps);
 
@@ -62,9 +72,13 @@ function App() {
       if (res2.ok) {
         const data = await res2.json();
         setPayments(data);
-      }
+      } else { throw new Error("Backend unavailable"); }
+
     } catch (error) {
-      console.log("API not reachable, using placeholders", error);
+      console.log("API not reachable, using Mock Data for Demo", error);
+      // Fallback to MOCK data for GitHub Pages Demo
+      if (participants.length === 0) setParticipants(MOCK_PARTICIPANTS);
+      if (payments.length === 0) setPayments(MOCK_PAYMENTS);
     }
   };
 
