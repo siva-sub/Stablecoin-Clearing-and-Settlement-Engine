@@ -1,3 +1,8 @@
+# Hardhat
+contracts/artifacts/
+contracts/cache/
+contracts/node_modules/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -7,6 +12,17 @@ venv/
 .pytest_cache/
 *.sqlite
 *.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test Outputs
+compliance_test*.txt
+dashboard_test*.txt
+verification_output*.txt
 
 # Node
 node_modules/

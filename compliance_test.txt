@@ -1,6 +1,0 @@
---- A. Small Payment (50.00) ---
-{"instructionId":"TX-SMALL-001","status":"CLEARED","reasonCode":null,"timestamp":"2026-01-12 09:54:51.881071","settlementReference":null}
---- B. Large Payment NO IVMS (50000.00) ---
-{"instructionId":"TX-FAIL-001","status":"REJECTED","reasonCode":"RR04","timestamp":"2026-01-12 09:54:51.985186","settlementReference":null}
---- C. Large Payment WITH IVMS (50000.00) ---
-{"detail":[{"type":"none_required","loc":["body","ivms101","Originator"],"msg":"Input should be None","input":{"originatorPersons":[{"naturalPerson":{"name":{"nameIdentifier":[{"primaryIdentifier":"Doe","nameIdentifierType":"LEGL"}]}}}],"accountNumber":["ACCT-A-001"]}},{"type":"none_required","loc":["body","ivms101","Beneficiary"],"msg":"Input should be None","input":{"beneficiaryPersons":[{"naturalPerson":{"name":{"nameIdentifier":[{"primaryIdentifier":"Smith","nameIdentifierType":"LEGL"}]}}}],"accountNumber":["ACCT-B-001"]}}]}

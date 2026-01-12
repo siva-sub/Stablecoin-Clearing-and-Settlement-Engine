@@ -1,6 +1,0 @@
---- A. Small Payment (50.00) ---
-{"instructionId":"TX-SMALL-002","status":"CLEARED","reasonCode":null,"timestamp":"2026-01-12 09:55:41.168714","settlementReference":null}
---- B. Large Payment NO IVMS (50000.00) ---
-{"instructionId":"TX-FAIL-002","status":"REJECTED","reasonCode":"RR04","timestamp":"2026-01-12 09:55:41.253749","settlementReference":null}
---- C. Large Payment WITH IVMS (50000.00) ---
-{"instructionId":"TX-IVMS-002","status":"CLEARED","reasonCode":null,"timestamp":"2026-01-12 09:55:41.490762","settlementReference":null}
