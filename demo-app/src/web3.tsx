@@ -2,12 +2,14 @@ import { createConfig, http } from 'wagmi';
 import { sepolia, hardhat } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
-import { injected } from 'wagmi/connectors';
+import { injected, metaMask, safe } from 'wagmi/connectors';
 
 export const config = createConfig({
     chains: [sepolia, hardhat],
     connectors: [
         injected(),
+        metaMask(),
+        safe(),
     ],
     transports: {
         [sepolia.id]: http(),
