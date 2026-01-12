@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("dotenv").config(); // Ensure dotenv is installed if not already
+require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
@@ -7,10 +7,10 @@ module.exports = {
     networks: {
         hardhat: {},
         sepolia: {
-            url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
+            // Free Public RPC (Rate limited but works for scraping/deploying once)
+            url: process.env.SEPOLIA_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com",
             accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
         },
-        // Amoy (Polygon)
         amoy: {
             url: "https://rpc-amoy.polygon.technology",
             accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],

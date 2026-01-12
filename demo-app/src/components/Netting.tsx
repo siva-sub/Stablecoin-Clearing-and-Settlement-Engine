@@ -8,10 +8,9 @@ import SettlementABI from '../abi/Settlement.json';
 import MockUSDCABI from '../abi/MockUSDC.json';
 import { parseUnits } from 'viem';
 
-// Addresses (Should be Env vars, but hardcoding for demo/simplicity)
-// Replace these with deployment output!
-const SETTLEMENT_ADDR = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
-const USDC_ADDR = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+// Addresses (Sepolia Testnet)
+const SETTLEMENT_ADDR = '0x27BeFc27e515DA31378e1DA20343134c1939f55a';
+const USDC_ADDR = '0x4D2C70FF3f02D91afB1872FE2595e609965D775a';
 
 export function Netting() {
     const { cycles, payments } = useSCSEStore();
@@ -46,24 +45,16 @@ export function Netting() {
         setLoading(true);
         try {
             const instrs = cycle.settlementInstructions;
-            const debtors = instrs.map((i: any) => i.debtorAgent === 'SCSE_POOL' ? address : '0x70997970C51812dc3A010C7d01b50e0d17dc79C8'); // Mock mapping
-            // In real world, we map 'BANK_A' -> 0x123...
-            // For verify, we just use the connected wallet as 'DEBTOR' usually, or Mock other accounts.
-
-            // This is a complex step for a single-wallet demo. 
-            // We will simplify: The connected wallet acts as the "Settlement Agent" (Owner).
-            // It triggers the batch.
-            // We assume Debtors have already approved (Mocked in tests). 
-
-            // To make it work in UI, we'll just mock the call parameters to be valid for the connected wallet
-            // Settle 0 value if no real tokens, just to prove contract interaction.
+            // Mock Debtor/Creditor Mapping for Demo
+            // In reality, 'BANK_A' -> Address A
+            // Here, we just use the connected user for everything to make the transaction pass (Self-transfer)
 
             await writeContractAsync({
                 address: SETTLEMENT_ADDR,
                 abi: SettlementABI.abi,
                 functionName: 'settleBatch',
                 args: [
-                    [address], // Debtor (Self for demo)
+                    [address], // Debtor (Self)
                     [BigInt(0)],
                     [address], // Creditor (Self)
                     [BigInt(0)]
