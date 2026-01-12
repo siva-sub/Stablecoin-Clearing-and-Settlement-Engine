@@ -1,0 +1,76 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # 1. Backend Setup
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx
+
+      # 2. Frontend Setup
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+          
+      # 3. Run Tests
+      # Note: We skip the test that requires a running server (dashboard test) 
+      # and just run unit/integration tests that use direct calls or testclient
+      - name: Run Integration Tests
+        run: |
+          export PYTHONPATH=$PYTHONPATH:.
+          # Run the Netting test (it spawns its own AsyncClient)
+          pytest tests/test_netting_scenario.py
+          pytest tests/test_settlement.py
+
+  deploy:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Deployment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const dep = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              task: 'deploy',
+              environment: 'production',
+              description: 'Deploying SCSE MVP'
+            });
+            
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: dep.data.id,
+              state: 'success',
+              description: 'Deployment simulated successfully',
+              log_url: `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+            });
