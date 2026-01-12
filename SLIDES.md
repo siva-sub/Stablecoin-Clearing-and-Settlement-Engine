@@ -115,13 +115,12 @@ In the context of Stablecoins (`USDC`/`EURC`), these terms have specific meaning
     *   Data updates (Internal Ledger)
 
 ### **2. Settlement (On-Chain)** ⛓️
-*   **What**: The *extinguishment* of obligations.
+*   **What**: The *extinguishment* of the net obligation.
 *   **Action**: "Here is the $50 token".
-*   **Process**:
-    *   Blockchain Transaction (ERC-20 Transfer)
-    *   **Finality**: Irreversible state change on Ethereum.
+*   **Mechanism**: **It is just an ERC-20 Transfer.**
+    *   Because Blockchains provide *immediate finality*, the transfer **IS** the settlement.
 
-> **Key Difference**: Clearing is "Promise"; Settlement is "Truth".
+> **Why separate them?**: By "Clearing" (Netting) off-chain first, we turn 1,000 payments into 1 Settlement Transfer.
 
 ---
 
