@@ -48,6 +48,31 @@ I have worked across product delivery, user research, and cross-agency collabora
 
 ---
 
+# **The Product: SCSE** 🚀
+
+**What I Built**: A fully functional, production-grade clearing and settlement engine.
+
+<div class="columns">
+<div>
+
+### **Live Dashboard**
+A React-based financial workstation that simulates:
+*   Real-time RTGS Payment Clearing.
+*   Interactive Netting Cycles.
+*   Wallet-based Settlement.
+
+> *I built this from scratch to demonstrate the complete lifecycle of a digital asset payment.*
+
+</div>
+<div>
+
+![h:400](screenshots/dashboard.png)
+
+</div>
+</div>
+
+---
+
 # **The Problem: Digital Money is Siloed**
 
 In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity fragmentation kills efficiency.
@@ -160,7 +185,7 @@ Algorithms identify and resolve circular debts (A->B->C->A).
 
 I built a full-stack simulation to demonstrate end-to-end payment lifecycles.
 
-![h:400](https://kroki.io/mermaid/svg/eNpNkE1LxDAQQO_-ioG9tGBBLbKwBw_tVlxYXNm2p-Ih207SYExKOh7E9b-bxn7NYTJk3jwyEZZ1LRzPN-Ci7NEGwalDy8jYMIQoeoLyUJ2R1QTP1mhC3bx71qf-6yK8IE_zDCqf3xQjbuznPzZEIy3WJI2GIpkvy4O3pwqZlVpUUwGZFlLjMj03BnyfVMGJ8yhtmdRwxEagDRf2FYkG2XhOrnHUY26B5f0T5_rX3NUKIWFUt1fIipefHDujJIMCe9JIv6u96duhw3cBl0rtNpzz256s-cDdJo7jFeREI4P3_JHjjN09bLeXZkXukwlEXMv-ANMCezY=)
+![h:250](https://kroki.io/mermaid/svg/eNpNkE1LxDAQQO_-ioG9tGBBLbKwBw_tVlxYXNm2p-Ih207SYExKOh7E9b-bxn7NYTJk3jwyEZZ1LRzPN-Ci7NEGwalDy8jYMIQoeoLyUJ2R1QTP1mhC3bx71qf-6yK8IE_zDCqf3xQjbuznPzZEIy3WJI2GIpkvy4O3pwqZlVpUUwGZFlLjMj03BnyfVMGJ8yhtmdRwxEagDRf2FYkG2XhOrnHUY26B5f0T5_rX3NUKIWFUt1fIipefHDujJIMCe9JIv6u96duhw3cBl0rtNpzz256s-cDdJo7jFeREI4P3_JHjjN09bLeXZkXukwlEXMv-ANMCezY=)
 
 
 *   **Frontend**: React, Mantine, Zustand.
