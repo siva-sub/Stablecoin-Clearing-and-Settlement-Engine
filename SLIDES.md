@@ -48,6 +48,39 @@ I have worked across product delivery, user research, and cross-agency collabora
 
 ---
 
+# **The Cross-Border Vision** 🌍
+
+*So instead of Central Bank Money or Nostro/Vostro ledgers, can we use this?*
+
+**YES. This replaces "Trapped Liquidity" with "Just-in-Time Liquidity".**
+
+### 1. The Old Way (Correspondent Banking) 🏦
+*   Bank A must keep **$10M** idle in Bank B's ledger (Nostro) just in case.
+*   **Why?**: To account for delays in *Central Bank Rebalancing*.
+*   **Cost**: "Trapped Liquidity" earning 0%.
+
+### 2. The SCSE Way (Netting + Stablecoins) 🚀
+*   Bank A and Bank B trade all day. Contract calculates Net = $0.
+*   **Result**: No money ever moves. No money is ever idle.
+*   **Settlement**: Only the *difference* moves on-chain, instantly, 24/7.
+
+> **Impact**: Unlocks Trillions in global "Sleeping Money".
+
+---
+
+# **The Paradigm Shift** 💡
+
+It is not about the stablecoin asset itself.
+
+### **It is about using the Stablecoin as a SETTLEMENT RAIL to replace legacy ledgers.**
+
+*   **From**: "Store of Value" (Idling in a bank account).
+*   **To**: "Medium of Exchange" (Moving instantly to settle debts).
+
+> This treats the Stablecoin as an **infrastructure upgrade**, not just a currency.
+
+---
+
 # **The Learning Journey: SCSE** 🚀
 
 **Goal**: To build a real-world Defi application from scratch to learn full-stack Web3 development.
@@ -130,7 +163,7 @@ In my work analyzing **Cross-Border Payments & CBDCs**, I've seen how liquidity 
 
 ---
 
-# **The Problem: The Liquidity Trap** �
+# **The Problem: The Liquidity Trap** 🪤
 
 *Question: "Stablecoin settlement is just a transfer, why build a Clearing Engine?"*
 
@@ -263,32 +296,6 @@ I built a full-stack simulation to demonstrate end-to-end payment lifecycles.
 *   **Frontend**: React, Mantine, Zustand.
 *   **Web3**: Wagmi, Viem, Solidity (Hardhat).
 *   **Logic**: Python (FastAPI/SQLAlchemy) adapted to client-side logic for the demo.
-
----
-
-# **The Cross-Border Vision** 🌍
-
-*So instead of Central Bank Money or Nostro/Vostro ledgers, can we use this?*
-
-**YES. This replaces "Trapped Liquidity" with "Just-in-Time Liquidity".**
-
-### 1. The Old Way (Correspondent Banking) 🏦
-*   Bank A must keep **$10M** idle in Bank B's ledger (Nostro) just in case.
-*   **Why?**: To account for delays in *Central Bank Rebalancing*.
-*   **Cost**: "Trapped Liquidity" earning 0%.
-
-### 2. The SCSE Way (Netting + Stablecoins) 🚀
-*   Bank A and Bank B trade all day. Contract calculates Net = $0.
-*   **Result**: No money ever moves. No money is ever idle.
-*   **Settlement**: Only the *difference* moves on-chain, instantly, 24/7.
-
-> **Impact**: Unlocks Trillions in global "Sleeping Money".
-
-***
-
-### **The Paradigm Shift**
-It is not about the stablecoin asset itself.
-**It is about using the Stablecoin as a SETTLEMENT RAIL to replace legacy ledgers.**
 
 ---
 
